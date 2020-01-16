@@ -1,0 +1,8 @@
+- name: Print facts
+  hosts: all
+  gather_facts: yes
+  tasks:
+   - name: Print memory from node
+     debug:
+        msg: "memory total = {{ansible_memtotal_mb}}"
+
