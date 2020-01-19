@@ -1,0 +1,30 @@
+resource "aws_instance" "web" {
+ami = "ami-0d542ef84ec55d71c"
+instance_type = "t2.micro"
+name = "web-app"
+vpc_security_group_ids = [sg-099f9e8e5adec9297,sg-03a7e1069d510d177,sg-0b1e30ed921bc6914]
+
+provisioner "local-exec" {
+ command = "echo ${self.private_ip} > /tmp/hosts"
+}
+
+provisioner "remote-exec" {
+ connection {
+   user = "root"
+   password = "Devops321"
+   host = self.private_ip
+}
+ inline = ["uptime"]
+}
+
+provisioner "local-exec" {
+  command = <<EOF
+   cd /root/ansible
+   ansible-playbook -i /tmp/hosts project.yml
+
+EOF
+}
+}
+
+provider "aws" {
+  region = "us-east-2"

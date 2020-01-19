@@ -1,0 +1,10 @@
+- name: Set a variable
+  hosts: all
+  tasks:
+    - shell: uptime
+      register: out
+    - set_fact:
+       OUTPUT: "{{out.stdout}}"
+
+    - debug:
+        msg: "OUTPUT of shell = {{OUTPUT}}"

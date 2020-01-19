@@ -1,0 +1,9 @@
+- name: Say hello
+  hosts: all
+  tasks:
+    - name: Say hello task
+      debug:
+        msg: hello
+    - name: Say one more hello
+      debug:
+        msg: One more hello

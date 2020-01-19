@@ -1,0 +1,11 @@
+- name: Demo on register
+  hosts: all
+  tasks:
+   - shell: uptime
+     register: out
+
+   - debug:
+       msg: "{{out}}"
+
+   - debug:
+       msg: "{{out.stdout}}"

@@ -1,0 +1,10 @@
+- name: Demo on conditions
+  hosts: all
+  tasks:
+   -  debug:
+        msg: Hello from Dev
+      when: ENV == "DEV"
+
+   -  debug:
+        msg: Hello from Prod
+      when: ENV == "PROD"

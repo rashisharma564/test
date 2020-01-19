@@ -1,0 +1,20 @@
+- name: Project setup
+  hosts: all
+  become: yes
+  tasks:
+     -  name: Install nginx
+        package:
+          name: nginx
+          state: present
+
+     -  name: Find all the files
+        find:
+           paths: /usr/share/nginx/html
+           file_type : any
+        register: out
+
+     -  name: Remove the files
+        file:
+          name: "{{item.path}}"
+          state: absent
+        loop: "{{out.files}}"

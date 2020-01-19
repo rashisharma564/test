@@ -1,0 +1,21 @@
+- name: Play1
+  hosts: all
+  tasks:
+   - ping:
+[root@ip-172-31-47-141 test]# ^C
+[root@ip-172-31-47-141 test]# yum update git
+Loaded plugins: fastestmirror, presto
+Setting up Update Process
+Loading mirror speeds from cached hostfile
+ * base: mirror.es.its.nyu.edu
+ * epel: epel.mirror.constant.com
+ * extras: distro.ibiblio.org
+ * updates: mirror.cs.vt.edu
+No Packages marked for Update
+[root@ip-172-31-47-141 test]# cat vars-from-inventory.yml
+- name : vars from inventory
+  hosts: all
+  tasks :
+    - name: var from inventory
+      debug:
+        msg: "URL = {{URL}}"

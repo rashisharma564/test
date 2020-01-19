@@ -1,0 +1,7 @@
+- name: Remove the file given
+  hosts: all
+  tasks:
+     - name: remove a file
+       file:
+          name: /tmp/abc.txt
+          state: absent

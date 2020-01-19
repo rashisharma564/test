@@ -1,0 +1,36 @@
+- name: Declare variables at play
+  hosts: all
+  vars:
+   URL: PLAY.GOOGLE.COM
+  tasks:
+   - debug:
+       msg: URL = {{URL}}
+
+- name: Declare a variable at task
+  hosts: all
+  tasks:
+    - debug:
+        msg: URL = {{URL}}
+      vars:
+        URL: tasks.google.com
+
+- name : Declare variables from user prompt
+  hosts: all
+  vars_prompt:
+    - name: URL
+      prompt: Enter URL
+      private: no
+
+  tasks:
+    - name: Print variable
+      debug:
+        msg: URL == {{URL}}
+
+
+- name: Print declared variables from a file
+  hosts: all
+  vars_files:
+      - sample-vars.yml
+  tasks:
+    - debug:
+        msg: URL == {{URL}}

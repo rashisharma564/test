@@ -1,0 +1,32 @@
+- name: Project setup
+  hosts: all
+  become: yes
+  tasks:
+     -  name: Install nginx
+        package:
+          name: nginx
+          state: present
+
+     -  name: Find all the files
+        find:
+           paths: /usr/share/nginx/html
+           file_type : any
+        register: out
+
+     -  name: Remove the files
+        file:
+          name: "{{item.path}}"
+          state: absent
+        loop: "{{out.files}}"
+
+     -  name: Download the HTTPD Content and extract it
+        unarchive:
+           src: https://studentapi-cit.s3-us-west-2.amazonaws.com/studentapp-frontend.tar.gz
+           dest: /usr/share/nginx/html
+           remote_src: yes
+
+     - name: Start nginx service
+       service:
+          name: nginx
+          enabled : yes
+          state: restarted
